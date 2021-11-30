@@ -33,3 +33,18 @@ var saveSearch = function(){
     localStorage.setItem("Cities", JSON.stringify(cities));
 };
 
+// fetch for server side API within function
+var getCityWeather = function(city){
+    //api key gathered from https://home.openweathermap.org/api_keys
+    var apiKey = "53cc19866aee7a5602f390746fd6f2e7"
+    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
+    //fetch for api URL
+    fetch(apiURL)
+    .then(function(response){
+        //display for data with call of displayweather
+        response.json().then(function(data){
+            displayWeather(data, city);
+        });
+    });
+};
+
