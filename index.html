@@ -13,7 +13,7 @@
 
 <body class="flex-column min-100-vh">
     <header class="hero">
-        <h1 class="app-title"><i class="fab fa-github"></i> Weather Dashboard</h1>
+        <h1 class="app-title"><i class='fas fa-rainbow'></i> Weather Dashboard</h1>
         <p>Search for a City to view the current and future weather conditions for that location!
         </p>
     </header>
@@ -23,22 +23,30 @@
         <div class="col-12 col-md-4">
 
             <div class="card">
-                <h3 class="card-header text-uppercase">City Search</h3>
-                <form id="user-form" class="card-body">
+                <h3 class="card-header text-uppercase">Search for a City</h3>
+                <form id="searched-city" class="card-body">
                     <label class="form-label" for="city">City</label>
                     <input name="city" id="city" type="text" autofocus="true" class="form-input" />
-                    <button type="submit" class="btn">City Search</button>
+                    <button type="submit" class="btn">Search</button>
                 </form>
+                <div id = "current-weather" class = "list-group"></div>
             </div>
-            <div class="card">
+            <div class="card" id="search-history">
                 <h3 class="card-header text-uppercase">
                     City Search History
+                    <div class = "past-search border" id = "past-search-btns"></div>
                 </h3>
             </div>
+            <div class = "row border" id = "five-day-forecast">
+                <h2 class= "col-12" id = "forecast"></h2>
+                <div class = "d-flex" id = "fiveday-container"></div>
+        </div> 
         </div>
     </main>
-
-    <script src="./assets/js/homepage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
