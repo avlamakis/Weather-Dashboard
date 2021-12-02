@@ -89,13 +89,13 @@ var displayWeather = function(weather, searchedCity){
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
     //call for UV Index variable
-    getUvIndex(lat,lon)
+    getUvIndex(lat,lon);
 }
 
 //variable function for UV index to fet data for lat,lon
 var getUvIndex = function (lat,lon) {
     var apiKey = "53cc19866aee7a5602f390746fd6f2e7"
-    var apiURL = 'https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}'
+    var apiURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`
     //fetch for the open weather map API with lat and lon parameters
     fetch(apiURL)
     .then(function(response){
@@ -134,7 +134,7 @@ var displayUvindex = function(index) {
 
 var getFiveDay = function(city){
     //parameters for city forecast
-    var apiKey = "844421298d794574c100e3409cee0499"
+    var apiKey = "53cc19866aee7a5602f390746fd6f2e7"
     var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
 
     //fetch of API
