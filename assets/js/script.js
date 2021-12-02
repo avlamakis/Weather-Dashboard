@@ -131,4 +131,15 @@ var displayUvindex = function(index) {
     weatherContainerEl.appendChild(uvIndexEl);
 };
 
+var getFiveDay = function(city){
+    //parameters for city forecast
+    var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
 
+    //fetch of API
+    fetch(apiURL)
+    .then(function(response){
+        response.json().then(function(data){
+            displayFiveDay(data);
+        });
+    });
+};
