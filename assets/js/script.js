@@ -89,7 +89,43 @@ var displayWeather = function(weather, searchedCity){
     var lon = weather.coord.lon;
     //call for UV Index variable
     getUvIndex(lat,lon)
+}
 
+//variable function for UV index to fet data for lat,lon
+var getUvIndex = function (lat,lon) {
+    var apiURL = 'https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}'
+    //fetch for the open weather map API with lat and lon parameters
+    fetch(apiURL)
+    .then(function(response){
+        response.json().then(function(data){
+            displayUvindex(data);
+        });
+    });
+    console.log(lon);
+    console.log(lat);
+}
+
+// display of the UV index
+var displayUvindex = function(index) {
+    var uvIndexEl = document.createElement ("div")
+    uvIndexEl.textContent = "UV INDEX"
+    uvIndexEl.classList ="list-group"
+
+    //span element for UV Value
+    uvIndexValue = document.createElement("span")
+    uvIndexEl.textContent = index.value
+
+    // if and else if statements for value on index for weather conditions, numeric amount taken from Open Weather API
+    if(index.value <=2){
+        uvIndexValue.classList = "favorable"
+    }else if(index.value >2 && index.value<=8){
+        uvIndexValue.classList = "moderate "
+    }
+    else if(index.value >8){
+        uvIndexValue.classList = "severe"
+    };
+    //append index value to index element
+    uvIndexEl.appendChild(uvIndexValue);
+    //append index element to current weather element
+    weatherContainerEl.appendChild(uvIndexEl);
 };
-
-
