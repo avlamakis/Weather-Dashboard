@@ -2,7 +2,7 @@
 
 var cities = [];
 
-var cityFormEl=document.querySelector("#city-search-form");
+var cityFormEl=document.querySelector("#city-search");
 var cityInputEl=document.querySelector("#city");
 
 var citySearchInputEl = document.querySelector("#searched-city");
@@ -11,7 +11,7 @@ var weatherContainerEl=document.querySelector("#current-weather");
 var forecastTitle = document.querySelector("#forecast");
 var forecastContainerEl = document.querySelector("#five-days");
 
-var pastSearchButtonEl = document.querySelector("#past-search-btns");
+var searchHistoryButtonEl = document.querySelector("#search-history-btns");
 
 // Variable targeting the event
 var formSumbitHandler = function(event){
@@ -20,7 +20,7 @@ var formSumbitHandler = function(event){
     //if statement calling the functions
     if(city){
         getCityWeather(city);
-        getForecast(city);
+        getFiveDay(city);
         cityInputEl.value = "";
     } else{
         alert("Please enter a valid City");
@@ -56,9 +56,9 @@ var displayWeather = function(weather, searchedCity){
     citySearchInputEl.textContent=searchedCity;
  
     //created date element, utilizing moment.js file to create the date format reference https://momentjs.com/ to set todays date
-    var todaysDate = moment().format('MMMM Do YYYY');
-    $(".todaysDate").append(today);
-    console.log(todaysDate)
+    var currentDate = document.createElement("span")
+   currentDate.textContent=" (" + moment(weather.dt.value).format("MMM D, YYYY") + ") ";
+   citySearchInputEl.appendChild(currentDate);
  
     //created a image element for weather ICONS
     var weatherIcon = document.createElement("img")
@@ -94,6 +94,7 @@ var displayWeather = function(weather, searchedCity){
 
 //variable function for UV index to fet data for lat,lon
 var getUvIndex = function (lat,lon) {
+    var apiKey = "53cc19866aee7a5602f390746fd6f2e7"
     var apiURL = 'https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}'
     //fetch for the open weather map API with lat and lon parameters
     fetch(apiURL)
@@ -133,6 +134,7 @@ var displayUvindex = function(index) {
 
 var getFiveDay = function(city){
     //parameters for city forecast
+    var apiKey = "844421298d794574c100e3409cee0499"
     var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
 
     //fetch of API
@@ -143,3 +145,54 @@ var getFiveDay = function(city){
         });
     });
 };
+
+var displayFiveDay = function(weather){
+    forecastContainerEl.textContent = ""
+    forecastTitle.textContent = "Five-Day Forecast:";
+
+    //variable created with i declared with time addition
+    var forecast = weather.list;
+        for(var i=5; i < forecast.length; i=i+10){
+       var dailyForecast = forecast[i];
+        
+       // div element created for the forecast containter
+       var forecastEl=document.createElement("div");
+       forecastEl.classList = "card bg-primary text-light m-2";
+
+       //create a date element to display the current dates and future forecast dates
+       var forecastDate = document.createElement("h3")
+       forecastDate.textContent= moment.unix(dailyForecast.dt).format("MMM D, YYYY");
+       forecastDate.classList = "card-header text-center"
+       forecastEl.appendChild(forecastDate);
+
+       
+       //Image Element created with attribute set for icons
+       var weatherIcon = document.createElement("img")
+       weatherIcon.classList = "card-body text-center";
+       weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);  
+
+       //append images to the forecast card- pulled from openweathermap
+       forecastEl.appendChild(weatherIcon);
+       
+       //create temperature span
+       var forecastTempEl=document.createElement("span");
+       forecastTempEl.classList = "card-body text-center";
+       forecastTempEl.textContent = dailyForecast.main.temp + " °f";
+
+        //append to forecast card
+        forecastEl.appendChild(forecastTempEl);
+
+       var forecastHumEl=document.createElement("span");
+       forecastHumEl.classList = "card-body text-center";
+       forecastHumEl.textContent = dailyForecast.main.humidity + "  %";
+
+       //appended Humidity to forecast card
+       forecastEl.appendChild(forecastHumEl);
+
+       //appended forecast element to five day container
+        forecastContainerEl.appendChild(forecastEl);
+    }
+
+}
+
+cityFormEl.addEventListener("submit", formSumbitHandler);
