@@ -2,13 +2,14 @@
 
 var cities = [];
 
+var cityFormEl=document.querySelector("#city-search-form");
 var cityInputEl=document.querySelector("#city");
 
 var citySearchInputEl = document.querySelector("#searched-city");
 var weatherContainerEl=document.querySelector("#current-weather");
 
 var forecastTitle = document.querySelector("#forecast");
-var forecastContainerEl = document.querySelector("#fiveday-container");
+var forecastContainerEl = document.querySelector("#five-days");
 
 var pastSearchButtonEl = document.querySelector("#past-search-btns");
 
@@ -129,3 +130,5 @@ var displayUvindex = function(index) {
     //append index element to current weather element
     weatherContainerEl.appendChild(uvIndexEl);
 };
+
+
