@@ -24,5 +24,7 @@ Made by myself, Alexandros Vlamakis. Utilized the following resources on the pro
 -https://openweathermap.org/api/one-call-api
 
 ## Link
+https://avlamakis.github.io/Weather-Dashboard/
 
 ## Screenshot
+![Weather Dashboard-Screenshot](https://user-images.githubusercontent.com/91172337/144733060-7ca7f843-c957-4ada-87fd-ab04a1e2d074.png)
