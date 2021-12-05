@@ -55,7 +55,7 @@ var displayWeather = function(weather, searchedCity){
     weatherContainerEl.textContent= "";  
     citySearchInputEl.textContent=searchedCity;
  
-    //created date element, utilizing moment.js file to create the date format reference https://momentjs.com/ to set todays date
+    //created date element, utilizing moment.js file to create the date format reference https://momentjs.com/ to set the date
     var currentDate = document.createElement("span")
    currentDate.textContent=" (" + moment(weather.dt.value).format("MMM D, YYYY") + ") ";
    citySearchInputEl.appendChild(currentDate);
@@ -100,18 +100,16 @@ var getUvIndex = function (lat,lon) {
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-            displayUvindex(data);
+            displayUvIndex(data);
         });
     });
-    console.log(lon);
-    console.log(lat);
 }
 
 // display of the UV index
-var displayUvindex = function(index) {
+var displayUvIndex = function(index) {
     var uvIndexEl = document.createElement ("div")
-    uvIndexEl.textContent = "UV INDEX"
-    uvIndexEl.classList ="list-group"
+    uvIndexEl.textContent = "UV Index: "
+    uvIndexEl.classList ="list-group-item"
 
     //span element for UV Value
     uvIndexValue = document.createElement("span")
@@ -150,9 +148,9 @@ var displayFiveDay = function(weather){
     forecastContainerEl.textContent = ""
     forecastTitle.textContent = "Five-Day Forecast:";
 
-    //variable created with i declared with time addition
+    //variable created with i declared to give 5 day forecast
     var forecast = weather.list;
-        for(var i=5; i < forecast.length; i=i+10){
+        for(var i=5; i < forecast.length; i=i+8){
        var dailyForecast = forecast[i];
         
        // div element created for the forecast containter
