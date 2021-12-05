@@ -192,5 +192,26 @@ var displayFiveDay = function(weather){
     }
 
 }
+// search history function
+var searchHistory = function(searchHistory){
+    //search History attribute/element creation 
+    searchHistoryEl = document.createElement("button");
+    searchHistoryEl.textContent = searchHistory;
+    searchHistoryEl.classList = "d-flex w-100 btn-light border p-2";
+    searchHistoryEl.setAttribute("data-city",searchHistory)
+    searchHistoryEl.setAttribute("type", "submit");
 
+    searchHistoryButtonEl.prepend(searchHistoryEl);
+}
+
+//search history function set to call city weather and five day forecast
+var searchHistoryHandler = function(event){
+    var city = event.target.getAttribute("data-city")
+    if(city){
+        getCityWeather(city);
+        getfiveDay(city);
+    }
+}
+//event listeners for submission of city and for click event of search history
 cityFormEl.addEventListener("submit", formSumbitHandler);
+searchHistoryButtonEl.addEventListener("click", searchHistoryHandler);
